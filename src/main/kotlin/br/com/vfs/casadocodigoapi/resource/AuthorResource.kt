@@ -8,18 +8,19 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/authors")
 class AuthorResource (private val service: AuthorService) {
 
     @PostMapping
-    fun createAuthor(@RequestBody request: AuthorRequest): AuthorResponse {
+    fun createAuthor(@RequestBody @Valid request: AuthorRequest): AuthorResponse {
         val author = service.create(Author(
             email = request.email,
             name = request.name,
             description = request.description
         ))
-        return AuthorResponse(author.id!!, author.email, author.name, author.description, author.createdAt)
+        return AuthorResponse(author.id!!, author.email, author.name, author.description, author.createdAt!!)
     }
 }
