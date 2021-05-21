@@ -4,10 +4,7 @@ import br.com.vfs.casadocodigoapi.model.entity.Author
 import br.com.vfs.casadocodigoapi.model.request.AuthorRequest
 import br.com.vfs.casadocodigoapi.model.response.AuthorResponse
 import br.com.vfs.casadocodigoapi.service.AuthorService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
@@ -21,6 +18,16 @@ class AuthorResource (private val service: AuthorService) {
             name = request.name,
             description = request.description
         ))
+        return AuthorResponse(author.id!!, author.email, author.name, author.description, author.createdAt!!)
+    }
+
+    @GetMapping
+    fun findAll() = service.findAll()
+            .map { AuthorResponse(it.id!!, it.email, it.name, it.description, it.createdAt!!)}
+
+    @GetMapping("/{id}")
+    fun findById(@PathVariable("id") id: Long): AuthorResponse {
+        val author = service.findById(id)
         return AuthorResponse(author.id!!, author.email, author.name, author.description, author.createdAt!!)
     }
 }
