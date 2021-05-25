@@ -11,7 +11,7 @@ import javax.persistence.*
 data class Author(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    val id: Long? = null,
+    var id: Long = 0,
     @Column(name = "EMAIL")
     val email: String,
     @Column(name = "NAME")
@@ -20,5 +20,5 @@ data class Author(
     val description: String,
     @CreatedDate
     @Column(name = "CREATED_AT")
-    var createdAt: LocalDateTime? = null //mutavel por causa do framework
+    var createdAt: LocalDateTime = LocalDateTime.now().minusYears(5)//mutavel por causa do framework
 )

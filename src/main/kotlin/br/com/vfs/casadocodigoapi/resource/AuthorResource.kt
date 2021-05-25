@@ -18,16 +18,16 @@ class AuthorResource (private val service: AuthorService) {
             name = request.name,
             description = request.description
         ))
-        return AuthorResponse(author.id!!, author.email, author.name, author.description, author.createdAt!!)
+        return AuthorResponse(author.id, author.email, author.name, author.description, author.createdAt)
     }
 
     @GetMapping
     fun findAll() = service.findAll()
-            .map { AuthorResponse(it.id!!, it.email, it.name, it.description, it.createdAt!!)}
+            .map { AuthorResponse(it.id, it.email, it.name, it.description, it.createdAt)}
 
     @GetMapping("/{id}")
     fun findById(@PathVariable("id") id: Long): AuthorResponse {
         val author = service.findById(id)
-        return AuthorResponse(author.id!!, author.email, author.name, author.description, author.createdAt!!)
+        return AuthorResponse(author.id, author.email, author.name, author.description, author.createdAt)
     }
 }

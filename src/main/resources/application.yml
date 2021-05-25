@@ -14,3 +14,12 @@ spring:
         format_sql: true
         default_batch_fetch_size: 20
     database-platform: org.hibernate.dialect.MySQL57Dialect
+
+#custumer configurations
+br:
+  com:
+    vfs:
+      api:
+        casadocodigo:
+          bean-validation:
+            unique-value: this a unique value field and that value exist in our database
