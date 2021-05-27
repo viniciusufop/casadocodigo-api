@@ -1,6 +1,6 @@
-package br.com.vfs.casadocodigoapi.validator
+package br.com.vfs.casadocodigoapi.infrastructure.resource.validator
 
-import br.com.vfs.casadocodigoapi.validator.annotations.UniqueValue
+import br.com.vfs.casadocodigoapi.infrastructure.resource.validator.annotations.UniqueValue
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.validation.ConstraintValidator

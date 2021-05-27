@@ -1,4 +1,4 @@
-package br.com.vfs.casadocodigoapi.errors
+package br.com.vfs.casadocodigoapi.infrastructure.resource.commons
 
 import java.time.LocalDateTime
 

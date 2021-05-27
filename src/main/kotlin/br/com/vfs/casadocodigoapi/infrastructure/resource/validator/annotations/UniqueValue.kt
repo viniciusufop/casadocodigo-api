@@ -1,6 +1,6 @@
-package br.com.vfs.casadocodigoapi.validator.annotations
+package br.com.vfs.casadocodigoapi.infrastructure.resource.validator.annotations
 
-import br.com.vfs.casadocodigoapi.validator.UniqueValueValidator
+import br.com.vfs.casadocodigoapi.infrastructure.resource.validator.UniqueValueValidator
 import javax.validation.Constraint
 import javax.validation.Payload
 import kotlin.reflect.KClass

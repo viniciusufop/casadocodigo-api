@@ -1,4 +1,4 @@
-package br.com.vfs.casadocodigoapi.model.response
+package br.com.vfs.casadocodigoapi.infrastructure.resource.v1.response
 
 import java.time.LocalDateTime
 

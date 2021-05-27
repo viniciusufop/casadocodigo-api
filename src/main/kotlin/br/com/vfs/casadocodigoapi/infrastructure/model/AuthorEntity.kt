@@ -1,4 +1,4 @@
-package br.com.vfs.casadocodigoapi.model.entity
+package br.com.vfs.casadocodigoapi.infrastructure.model
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "AUTHOR")
 @EntityListeners(AuditingEntityListener::class)
-data class Author(
+data class AuthorEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     var id: Long = 0,

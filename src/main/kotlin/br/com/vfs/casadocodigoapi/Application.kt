@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @EnableJpaAuditing
 @SpringBootApplication
-@EnableJpaRepositories(enableDefaultTransactions = false)
 class Application
 
 fun main(args: Array<String>) {

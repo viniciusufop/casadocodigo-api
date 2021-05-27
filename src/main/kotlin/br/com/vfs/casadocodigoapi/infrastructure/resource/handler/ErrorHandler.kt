@@ -1,6 +1,7 @@
-package br.com.vfs.casadocodigoapi.errors
+package br.com.vfs.casadocodigoapi.infrastructure.resource.handler
 
 import br.com.vfs.casadocodigoapi.expection.ElementNotExistException
+import br.com.vfs.casadocodigoapi.infrastructure.resource.commons.ErrorModel
 import org.springframework.core.env.Environment
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
