@@ -1,7 +1,7 @@
 package br.com.vfs.casadocodigoapi.infrastructure.resource.v1
 
-import br.com.vfs.casadocodigoapi.domain.entities.NewAuthor
-import br.com.vfs.casadocodigoapi.domain.services.AuthorService
+import br.com.vfs.casadocodigoapi.domain.input.NewAuthor
+import br.com.vfs.casadocodigoapi.domain.usecase.AuthorService
 import br.com.vfs.casadocodigoapi.infrastructure.resource.v1.request.AuthorRequest
 import br.com.vfs.casadocodigoapi.infrastructure.resource.v1.response.AuthorResponse
 import org.springframework.web.bind.annotation.*
@@ -18,7 +18,8 @@ class AuthorResource (private val service: AuthorService) {
             email = request.email,
             name = request.name,
             description = request.description
-        ))
+        )
+        )
         return AuthorResponse(author.id, author.email, author.name, author.description, author.createdAt)
     }
 

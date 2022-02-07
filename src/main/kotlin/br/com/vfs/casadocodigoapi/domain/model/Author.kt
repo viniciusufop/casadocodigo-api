@@ -1,4 +1,4 @@
-package br.com.vfs.casadocodigoapi.domain.entities
+package br.com.vfs.casadocodigoapi.domain.model
 
 import java.time.LocalDateTime
 
@@ -8,4 +8,6 @@ data class Author(
     val name: String,
     val description: String,
     var createdAt: LocalDateTime
-)
+) : HasEmail {
+    override fun email() = email
+}

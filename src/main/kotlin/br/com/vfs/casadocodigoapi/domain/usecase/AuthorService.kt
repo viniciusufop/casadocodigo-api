@@ -1,7 +1,7 @@
-package br.com.vfs.casadocodigoapi.domain.services
+package br.com.vfs.casadocodigoapi.domain.usecase
 
-import br.com.vfs.casadocodigoapi.domain.entities.Author
-import br.com.vfs.casadocodigoapi.domain.entities.NewAuthor
+import br.com.vfs.casadocodigoapi.domain.model.Author
+import br.com.vfs.casadocodigoapi.domain.input.NewAuthor
 
 interface AuthorService {
     /*

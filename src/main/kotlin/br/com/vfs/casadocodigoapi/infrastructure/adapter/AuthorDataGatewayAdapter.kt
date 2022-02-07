@@ -1,9 +1,8 @@
 package br.com.vfs.casadocodigoapi.infrastructure.adapter
 
-import br.com.vfs.casadocodigoapi.domain.entities.Author
-import br.com.vfs.casadocodigoapi.domain.entities.NewAuthor
+import br.com.vfs.casadocodigoapi.domain.model.Author
+import br.com.vfs.casadocodigoapi.domain.input.NewAuthor
 import br.com.vfs.casadocodigoapi.domain.gateway.AuthorDataGateway
-import br.com.vfs.casadocodigoapi.expection.ElementNotExistException
 import br.com.vfs.casadocodigoapi.infrastructure.model.AuthorEntity
 import br.com.vfs.casadocodigoapi.infrastructure.repository.AuthorRepository
 import org.springframework.stereotype.Service
@@ -12,7 +11,8 @@ import org.springframework.stereotype.Service
 class AuthorDataGatewayAdapter(
     private val authorRepository: AuthorRepository
 ) : AuthorDataGateway {
-    override fun create(newAuthor: NewAuthor) = authorRepository.save(AuthorEntity(
+    override fun create(newAuthor: NewAuthor) =
+        authorRepository.save(AuthorEntity(
             email = newAuthor.email,
             name = newAuthor.name,
             description = newAuthor.description
@@ -43,5 +43,9 @@ class AuthorDataGatewayAdapter(
             description = it.description,
             createdAt = it.createdAt
         ) };
+    }
+
+    override fun findByEmail(email: String): Author? {
+        TODO("Not yet implemented")
     }
 }
