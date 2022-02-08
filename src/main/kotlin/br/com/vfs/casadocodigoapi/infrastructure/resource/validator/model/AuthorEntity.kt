@@ -1,5 +1,6 @@
-package br.com.vfs.casadocodigoapi.infrastructure.model
+package br.com.vfs.casadocodigoapi.infrastructure.resource.validator.model
 
+import br.com.vfs.casadocodigoapi.domain.model.Author
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
@@ -20,5 +21,20 @@ data class AuthorEntity(
     val description: String,
     @CreatedDate
     @Column(name = "CREATED_AT")
-    var createdAt: LocalDateTime = LocalDateTime.now().minusYears(5)//mutavel por causa do framework
-)
+    var createdAt: LocalDateTime = LocalDateTime.now()
+) {
+    constructor(author: Author) : this(
+        email = author.email,
+        name = author.name,
+        description = author.description
+    )
+
+    fun toModel() =
+        Author(
+            id = id,
+            email = email,
+            name = name,
+            description = description,
+            createdAt = createdAt
+        )
+}
