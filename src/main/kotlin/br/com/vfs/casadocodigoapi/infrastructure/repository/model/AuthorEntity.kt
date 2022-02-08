@@ -1,4 +1,4 @@
-package br.com.vfs.casadocodigoapi.infrastructure.resource.validator.model
+package br.com.vfs.casadocodigoapi.infrastructure.repository.model
 
 import br.com.vfs.casadocodigoapi.domain.model.Author
 import org.springframework.data.annotation.CreatedDate

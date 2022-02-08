@@ -1,9 +1,8 @@
 package br.com.vfs.casadocodigoapi.infrastructure.resource.handler
 
+import br.com.vfs.casadocodigoapi.domain.expection.AuthorDoNotExistException
 import br.com.vfs.casadocodigoapi.domain.expection.AuthorException
-import br.com.vfs.casadocodigoapi.expection.ElementNotExistException
 import br.com.vfs.casadocodigoapi.infrastructure.resource.commons.ErrorModel
-import org.springframework.core.env.Environment
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,7 +14,7 @@ import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 @RestControllerAdvice
-class ErrorHandler(private val environment: Environment) : ResponseEntityExceptionHandler() {
+class ErrorHandle : ResponseEntityExceptionHandler() {
 
     override fun handleMethodArgumentNotValid(
         ex: MethodArgumentNotValidException,
@@ -32,14 +31,14 @@ class ErrorHandler(private val environment: Environment) : ResponseEntityExcepti
 
     @ExceptionHandler(value = [AuthorException::class])
     fun handleAuthorException(ex: AuthorException, request: WebRequest):ResponseEntity<Any> {
-        val errors = listOf(ex.message?:"")
+        val errors = listOf(ex.message)
         val url = (request as ServletWebRequest).request.requestURI
         val errorModel = ErrorModel(errors = errors, path = url)
         return super.handleExceptionInternal(ex, errorModel, HttpHeaders.EMPTY, HttpStatus.BAD_REQUEST, request)
     }
 
-    @ExceptionHandler(value = [ElementNotExistException::class])
-    fun handle(ex: ElementNotExistException, request: WebRequest):ResponseEntity<Any> {
+    @ExceptionHandler(value = [AuthorDoNotExistException::class])
+    fun handleAuthorDoNotExistException(ex: AuthorDoNotExistException, request: WebRequest):ResponseEntity<Any> {
         val errors = listOf(ex.message)
         val url = (request as ServletWebRequest).request.requestURI
         val errorModel = ErrorModel(errors = errors, path = url)
