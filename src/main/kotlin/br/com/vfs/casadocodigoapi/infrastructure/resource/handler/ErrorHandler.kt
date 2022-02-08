@@ -1,5 +1,6 @@
 package br.com.vfs.casadocodigoapi.infrastructure.resource.handler
 
+import br.com.vfs.casadocodigoapi.domain.expection.AuthorException
 import br.com.vfs.casadocodigoapi.expection.ElementNotExistException
 import br.com.vfs.casadocodigoapi.infrastructure.resource.commons.ErrorModel
 import org.springframework.core.env.Environment
@@ -23,10 +24,18 @@ class ErrorHandler(private val environment: Environment) : ResponseEntityExcepti
         request: WebRequest
     ): ResponseEntity<Any> {
         val errors = ex.bindingResult.fieldErrors
-            .map { "field: ${it.field}, message: ${environment.getProperty(it.defaultMessage?:"")}, value: ${it.rejectedValue}"}
+            .map { "field: ${it.field}, message: ${it.defaultMessage?: ""}, value: ${it.rejectedValue}"}
         val url = (request as ServletWebRequest).request.requestURI
         val errorModel = ErrorModel(errors = errors, path = url)
         return super.handleExceptionInternal(ex, errorModel, headers, status, request)
+    }
+
+    @ExceptionHandler(value = [AuthorException::class])
+    fun handleAuthorException(ex: AuthorException, request: WebRequest):ResponseEntity<Any> {
+        val errors = listOf(ex.message?:"")
+        val url = (request as ServletWebRequest).request.requestURI
+        val errorModel = ErrorModel(errors = errors, path = url)
+        return super.handleExceptionInternal(ex, errorModel, HttpHeaders.EMPTY, HttpStatus.BAD_REQUEST, request)
     }
 
     @ExceptionHandler(value = [ElementNotExistException::class])

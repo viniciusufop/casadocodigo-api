@@ -10,13 +10,4 @@ data class Author(
     var createdAt: LocalDateTime
 ) : HasEmail {
     override fun email() = email
-
-    fun toModel() =
-        Author(
-            id = 0,
-            email = email,
-            name = name,
-            description = description,
-            createdAt = LocalDateTime.now()
-        )
 }
