@@ -26,6 +26,7 @@ dependencies {
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+	testRuntimeOnly("com.h2database:h2")
 }
 
 tasks.withType<KotlinCompile> {
