@@ -44,7 +44,7 @@ class CreateAuthorUseCaseTest {
         Mockito.`when`(authorDataGateway.save(any())).thenReturn(author)
         Assertions.assertDoesNotThrow {
             val saveAuthor: Author = createAuthorUseCase.execute(newAuthor)
-            Assertions.assertEquals(newAuthor.email, saveAuthor.name, "Email do author é diferente do esperado")
+            Assertions.assertEquals(newAuthor.email, saveAuthor.email, "Email do author é diferente do esperado")
         }
     }
 }
