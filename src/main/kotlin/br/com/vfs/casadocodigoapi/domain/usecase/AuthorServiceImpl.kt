@@ -12,7 +12,7 @@ class AuthorServiceImpl(
 ) : AuthorService{
 
     override fun create(newAuthor: NewAuthor): Author {
-        return authorDataGateway.create(newAuthor)
+        return authorDataGateway.save(newAuthor.toModel())
     }
 
     override fun findAll() = authorDataGateway.findAll()

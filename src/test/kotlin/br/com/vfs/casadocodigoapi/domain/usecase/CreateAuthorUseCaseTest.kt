@@ -11,6 +11,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.any
 import org.mockito.kotlin.eq
 import java.time.LocalDateTime
 
@@ -26,17 +27,19 @@ class CreateAuthorUseCaseTest {
 
     @Test
     fun `should throw AuthorExistsInSystemException when author's email exists in system`() {
-        Mockito.`when`(authorDataGateway.findByEmail(Mockito.anyString())).thenReturn(buildAuthor())
+        val newAuthor = buildNewAuthor()
+        Mockito.`when`(authorDataGateway.findByEmail(eq(newAuthor.email))).thenReturn(buildAuthor())
         Assertions.assertThrows(AuthorExistsInSystemException::class.java) {
-            createAuthorUseCase.execute(buildNewAuthor())
+            createAuthorUseCase.execute(newAuthor)
         }
     }
 
     @Test
     fun `should author when author's email don't exist in system`() {
         val newAuthor = buildNewAuthor()
-        Mockito.`when`(authorDataGateway.findByEmail(Mockito.anyString())).thenReturn(null)
-        Mockito.`when`(authorDataGateway.create(eq(newAuthor))).thenReturn(buildAuthor())
+        val author = buildAuthor()
+        Mockito.`when`(authorDataGateway.findByEmail(eq(newAuthor.email))).thenReturn(null)
+        Mockito.`when`(authorDataGateway.save(any())).thenReturn(author)
         Assertions.assertDoesNotThrow {
             val saveAuthor: Author = createAuthorUseCase.execute(newAuthor)
             Assertions.assertEquals(newAuthor.email, saveAuthor.email)

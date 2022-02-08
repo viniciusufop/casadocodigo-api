@@ -1,7 +1,7 @@
 package br.com.vfs.casadocodigoapi.infrastructure.resource.v1
 
-import br.com.vfs.casadocodigoapi.domain.input.NewAuthor
 import br.com.vfs.casadocodigoapi.domain.usecase.AuthorService
+import br.com.vfs.casadocodigoapi.domain.usecase.CreateAuthorUseCase
 import br.com.vfs.casadocodigoapi.infrastructure.resource.v1.request.AuthorRequest
 import br.com.vfs.casadocodigoapi.infrastructure.resource.v1.response.AuthorResponse
 import org.springframework.web.bind.annotation.*
@@ -9,19 +9,16 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/v1/authors")
-class AuthorResource (private val service: AuthorService) {
+class AuthorResource (
+    private val service: AuthorService,
+    private val createAuthorUseCase: CreateAuthorUseCase
+    ) {
 
     @PostMapping
-    fun createAuthor(@RequestBody @Valid request: AuthorRequest): AuthorResponse {
-        val author = service.create(
-            NewAuthor(
-            email = request.email,
-            name = request.name,
-            description = request.description
-        )
-        )
-        return AuthorResponse(author.id, author.email, author.name, author.description, author.createdAt)
-    }
+    fun createAuthor(@RequestBody @Valid request: AuthorRequest) =
+        request.toInput()
+            .let { createAuthorUseCase.execute(it) }
+            .let { AuthorResponse(it) }
 
     @GetMapping
     fun findAll() = service.findAll()

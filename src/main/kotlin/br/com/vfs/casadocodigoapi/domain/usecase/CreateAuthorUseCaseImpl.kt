@@ -12,9 +12,8 @@ class CreateAuthorUseCaseImpl(
 ) : CreateAuthorUseCase{
 
     override fun execute(newAuthor: NewAuthor): Author {
-        //Proximos passos, mudar o gateway para author
         val author = newAuthor.toModel()
         ValidateAuthorEmailExistsInSystem.execute(author, authorDataGateway)
-        return authorDataGateway.create(newAuthor)
+        return authorDataGateway.save(author)
     }
 }

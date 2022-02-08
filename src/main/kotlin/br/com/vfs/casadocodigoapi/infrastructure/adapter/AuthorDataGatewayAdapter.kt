@@ -11,18 +11,22 @@ import org.springframework.stereotype.Service
 class AuthorDataGatewayAdapter(
     private val authorRepository: AuthorRepository
 ) : AuthorDataGateway {
-    override fun create(newAuthor: NewAuthor) =
-        authorRepository.save(AuthorEntity(
-            email = newAuthor.email,
-            name = newAuthor.name,
-            description = newAuthor.description
-        )).let { Author(
-            id = it.id,
-            email = it.email,
-            name = it.name,
-            description = it.description,
-            createdAt = it.createdAt
-        ) }
+//    override fun save(newAuthor: NewAuthor) =
+//        authorRepository.save(AuthorEntity(
+//            email = newAuthor.email,
+//            name = newAuthor.name,
+//            description = newAuthor.description
+//        )).let { Author(
+//            id = it.id,
+//            email = it.email,
+//            name = it.name,
+//            description = it.description,
+//            createdAt = it.createdAt
+//        ) }
+
+    override fun save(author: Author): Author {
+        TODO("Not yet implemented")
+    }
 
     override fun findAll(): List<Author> =
         authorRepository.findAll().filterNotNull()
