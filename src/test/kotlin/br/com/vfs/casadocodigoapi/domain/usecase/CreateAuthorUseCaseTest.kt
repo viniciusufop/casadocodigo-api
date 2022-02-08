@@ -3,6 +3,8 @@ package br.com.vfs.casadocodigoapi.domain.usecase
 import br.com.vfs.casadocodigoapi.domain.model.Author
 import br.com.vfs.casadocodigoapi.domain.input.NewAuthor
 import br.com.vfs.casadocodigoapi.domain.expection.AuthorExistsInSystemException
+import br.com.vfs.casadocodigoapi.domain.fixture.AuthorFixture
+import br.com.vfs.casadocodigoapi.domain.fixture.NewAuthorFixture
 import br.com.vfs.casadocodigoapi.domain.gateway.AuthorDataGateway
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -27,8 +29,8 @@ class CreateAuthorUseCaseTest {
 
     @Test
     fun `should throw AuthorExistsInSystemException when author's email exists in system`() {
-        val newAuthor = buildNewAuthor()
-        Mockito.`when`(authorDataGateway.findByEmail(eq(newAuthor.email))).thenReturn(buildAuthor())
+        val newAuthor = NewAuthorFixture.new()
+        Mockito.`when`(authorDataGateway.findByEmail(eq(newAuthor.email))).thenReturn(AuthorFixture.new())
         Assertions.assertThrows(AuthorExistsInSystemException::class.java) {
             createAuthorUseCase.execute(newAuthor)
         }
@@ -36,8 +38,8 @@ class CreateAuthorUseCaseTest {
 
     @Test
     fun `should author when author's email don't exist in system`() {
-        val newAuthor = buildNewAuthor()
-        val author = buildAuthor()
+        val newAuthor = NewAuthorFixture.new()
+        val author = AuthorFixture.new()
         Mockito.`when`(authorDataGateway.findByEmail(eq(newAuthor.email))).thenReturn(null)
         Mockito.`when`(authorDataGateway.save(any())).thenReturn(author)
         Assertions.assertDoesNotThrow {
@@ -45,14 +47,4 @@ class CreateAuthorUseCaseTest {
             Assertions.assertEquals(newAuthor.email, saveAuthor.email)
         }
     }
-
-    private fun buildNewAuthor() =
-        NewAuthor(
-            "teste@email", "TEst", "teste"
-        )
-
-    private fun buildAuthor() =
-        Author(
-            1, "teste@email", "TEst", "teste", LocalDateTime.now()
-        )
 }

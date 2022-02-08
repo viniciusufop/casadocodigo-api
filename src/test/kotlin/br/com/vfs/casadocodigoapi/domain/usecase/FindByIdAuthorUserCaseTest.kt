@@ -2,6 +2,7 @@ package br.com.vfs.casadocodigoapi.domain.usecase
 
 import br.com.vfs.casadocodigoapi.domain.expection.AuthorDoNotExistException
 import br.com.vfs.casadocodigoapi.domain.expection.AuthorExistsInSystemException
+import br.com.vfs.casadocodigoapi.domain.fixture.AuthorFixture
 import br.com.vfs.casadocodigoapi.domain.gateway.AuthorDataGateway
 import br.com.vfs.casadocodigoapi.domain.model.Author
 import org.junit.jupiter.api.Assertions
@@ -37,7 +38,11 @@ class FindByIdAuthorUserCaseTest {
 
     @Test
     fun `should return author when author's id exist in system`() {
-        val author = buildAuthor()
+        val author = AuthorFixture.new(
+            email = "batata@email",
+            name = "Erick",
+            description = "aventura"
+        )
         val id = 1L
         Mockito.`when`(authorDataGateway.findById(eq(id))).thenReturn(author)
         Assertions.assertDoesNotThrow {
@@ -45,9 +50,4 @@ class FindByIdAuthorUserCaseTest {
             Assertions.assertEquals(author, findAuthorById)
         }
     }
-
-    private fun buildAuthor() =
-        Author(
-            1, "batata@email", "Erick", "aventura", LocalDateTime.now()
-        )
 }
